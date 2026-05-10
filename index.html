@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walrus</title>
+  <meta name="description" content="Walrus AS is a Norwegian company.">
+
+  <meta property="og:title" content="Walrus">
+  <meta property="og:description" content="A Norwegian company.">
+  <meta property="og:image" content="walrus-logo.png">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/png" href="walrus-logo.png">
+  <link rel="apple-touch-icon" href="walrus-logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="home">
+    <div class="logo-block">
+      <img id="walrus-mark" src="walrus-logo.png" alt="Walrus">
+      <div class="wordmark-text">walrus</div>
+    </div>
+    <nav class="primary">
+      <a href="about.html">About our company</a>
+      <a href="walruses.html">Photographs of wild walruses</a>
+      <a href="https://docs.google.com/spreadsheets/d/1r58V9bGHoJZDuZ3yRSJWuCCVVie4632kGpdcs40XNWY/edit?gid=370596621#gid=370596621" target="_blank" rel="noopener">For the partners</a>
+    </nav>
+  </main>
+
+  <script>
+  (function() {
+    const walrus = document.getElementById('walrus-mark');
+    if (!walrus) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let startTime = Date.now();
+    let isHovering = false;
+
+    walrus.addEventListener('mouseenter', () => isHovering = true);
+    walrus.addEventListener('mouseleave', () => isHovering = false);
+
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+    function easeInQuad(t) { return t * t; }
+
+    function animate() {
+      if (!isHovering) {
+        const t = (Date.now() - startTime) / 1000;
+
+        // BREATHING — gentle continuous pulse (subtle)
+        const breatheScale = 1 + 0.0085 * Math.sin((t / 6) * Math.PI * 2);
+
+        // THE HOP — every 35 seconds, vertical only, with a small tilt
+        const hopCycle = t % 35;
+        let hopY = 0;
+        let hopTilt = 0;
+        let hopScale = 1;
+
+        if (hopCycle < 32) {
+          // resting
+        } else if (hopCycle < 32.4) {
+          const p = (hopCycle - 32) / 0.4;
+          hopY = 3 * easeInQuad(p);
+          hopTilt = -1.5 * easeInQuad(p);
+          hopScale = 1 - 0.02 * easeInQuad(p);
+        } else if (hopCycle < 32.9) {
+          const p = (hopCycle - 32.4) / 0.5;
+          hopY = 3 - (3 + 18) * easeOutCubic(p);
+          hopTilt = -1.5 + (1.5 + 2) * easeOutCubic(p);
+          hopScale = 0.98 + 0.04 * easeOutCubic(p);
+        } else if (hopCycle < 33.3) {
+          const p = (hopCycle - 32.9) / 0.4;
+          hopY = -18 + 18 * easeInQuad(p);
+          hopTilt = 0.5 - 0.5 * easeInQuad(p);
+          hopScale = 1.02 - 0.02 * easeInQuad(p);
+        } else {
+          const p = Math.min(1, (hopCycle - 33.3) / 0.5);
+          hopY = 2 * Math.sin(p * Math.PI) * (1 - p) * 0.4;
+        }
+
+        const totalScale = breatheScale * hopScale;
+        walrus.style.transform =
+          `translateY(${hopY}px) rotate(${hopTilt}deg) scale(${totalScale})`;
+      }
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  })();
+  </script>
+</body>
+</html>

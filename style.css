@@ -1,0 +1,344 @@
+/* ===========================================================
+   Walrus — site styles
+   =========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root {
+  --cream: #F5EFE0;
+  --brown: #3E2C1C;
+  --brown-soft: #6b5742;
+  --brown-faint: rgba(62, 44, 28, 0.4);
+  --rule: rgba(62, 44, 28, 0.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: #F5EFE0; }
+
+body {
+  background: #F5EFE0;
+  color: var(--brown);
+  font-family: 'EB Garamond', Garamond, 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem;
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ============== HOME PAGE ============== */
+
+/* On the home page the layout pushes the logo toward the top
+   third and the nav links toward the bottom, with empty space
+   between. */
+/* On the home page, cluster logo + wordmark + nav as a single
+   composition centered vertically. The natural margin between
+   the logo-block and the nav handles spacing — no dead zone. */
+main.home {
+  justify-content: center;
+  align-items: center;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  max-width: 880px;
+}
+
+.home {
+  text-align: center;
+}
+
+.logo-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  /* Gap to nav: ~2.5x wordmark line-height. Reads as connected
+     to the logo, not anchored to a far-away footer. */
+  margin-bottom: 7rem;
+}
+
+#walrus-mark {
+  display: block;
+  width: 16vw;
+  max-width: 204px;
+  min-width: 144px;
+  height: auto;
+  cursor: default;
+  transform: translateY(0) scale(1) rotate(0deg);
+  transform-origin: center bottom;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Crisper rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+#walrus-mark:hover {
+  transform: scale(1.06) translateY(-6px) !important;
+}
+
+.wordmark-text {
+  font-family: 'EB Garamond', Garamond, serif;
+  font-size: clamp(1.6rem, 4vw, 2.65rem);
+  letter-spacing: 0.32em;
+  text-transform: lowercase;
+  color: var(--brown);
+  font-weight: 400;
+  /* Stays still — only the animal moves above */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #walrus-mark { transform: none !important; }
+}
+
+/* ============== NAVIGATION ============== */
+
+nav.primary {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 100%;
+}
+
+nav.primary a {
+  color: var(--brown);
+  text-decoration: none;
+  font-size: clamp(0.95rem, 1.6vw, 1.25rem);
+  letter-spacing: 0.03em;
+  position: relative;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+nav.primary a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+nav.primary a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ============== INNER PAGES ============== */
+
+.page-header {
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.page-header a.brand {
+  text-decoration: none;
+  color: var(--brown);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-header img.mark-small {
+  width: 90px;
+  height: auto;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.page-header a.brand:hover img.mark-small {
+  transform: translateY(-3px);
+}
+
+.page-header .wordmark {
+  font-size: 1.15rem;
+  letter-spacing: 0.32em;
+  text-transform: lowercase;
+}
+
+.content {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.content p {
+  margin-bottom: 1.25rem;
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.content p.lead {
+  font-size: 1.35rem;
+  line-height: 1.55;
+  margin-bottom: 1.75rem;
+  font-weight: 500;
+}
+
+.content a {
+  color: var(--brown);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: opacity 0.3s ease;
+}
+
+.content a:hover {
+  opacity: 0.55;
+}
+
+.content .contact-block {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+}
+
+.content .contact-block p {
+  margin-bottom: 0.4rem;
+  font-size: 1.05rem;
+}
+
+.content .contact-block .name {
+  font-style: italic;
+  color: var(--brown-soft);
+  margin-top: 0.5rem;
+}
+
+/* ============== WALRUSES PHOTOS ============== */
+
+.photos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.photo { text-align: center; }
+
+.photo .placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: rgba(62, 44, 28, 0.04);
+  border: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brown-soft);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+.photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.photo .caption {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--brown-soft);
+  letter-spacing: 0.02em;
+}
+
+.photo .caption a {
+  color: var(--brown-soft);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(107, 87, 66, 0.3);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.photo .caption a:hover {
+  color: var(--brown);
+  border-bottom-color: var(--brown);
+}
+
+/* ============== 404 ============== */
+
+.notfound { text-align: center; }
+
+.notfound .mark-medium {
+  width: 140px;
+  margin: 0 auto 2rem;
+  opacity: 0.85;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.notfound h1 {
+  font-weight: 400;
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.notfound p {
+  color: var(--brown-soft);
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.notfound a.return {
+  color: var(--brown);
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--brown);
+  padding-bottom: 2px;
+  transition: opacity 0.3s ease;
+}
+
+.notfound a.return:hover { opacity: 0.55; }
+
+/* ============== FOOTER ============== */
+
+footer {
+  text-align: center;
+  padding: 4rem 2rem 2rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--brown-faint);
+  font-variant: small-caps;
+}
+
+/* ============== RESPONSIVE ============== */
+
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  main { padding: 4rem 1.5rem; }
+  main.home { padding-top: 6vh; padding-bottom: 3rem; }
+  #walrus-mark { width: 32vw; min-width: 130px; }
+  nav.primary {
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  nav.primary a { font-size: 1.05rem; }
+  .content p { font-size: 1.1rem; }
+  .content p.lead { font-size: 1.25rem; }
+}
